@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <RootNamespace>Compori.Alphaplan.Plugin.Support</RootNamespace>
+    <AssemblyName>Compori.Alphaplan.Plugin.Support.2850200Z</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PlatformTarget>x86</PlatformTarget>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Compori.Base" Version="0.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Support.Base\Support.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-2850-200\app\Base.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>    
+    <Source_2850200Z_Support2100287_Data Include="..\Support2100287\Data\*.cs"/>
+  </ItemGroup> 
+  <ItemGroup>    
+    <Source_2850200Z_Support2100287_Data_SqlClient Include="..\Support2100287\Data\SqlClient\**\*.cs"/>
+  </ItemGroup> 
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy SourceFiles="@(Source_2850200Z_Support2100287_Data)" DestinationFiles="@(Source_2850200Z_Support2100287_Data->'Data\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_2850200Z_Support2100287_Data_SqlClient)" DestinationFiles="@(Source_2850200Z_Support2100287_Data_SqlClient->'Data\SqlClient\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

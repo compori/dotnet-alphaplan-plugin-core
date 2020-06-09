@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9ACC3B16-3561-4DB7-99A5-125021B281F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestingActionsPlugin</RootNamespace>
+    <AssemblyName>TestingActionsPlugin</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\references\alphaplan-2100-287\Data\Eigene\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-2100-287\aps\Base.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll">
+      <Version>4.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Actions.DryIoc\Actions.DryIoc.csproj">
+      <Project>{42240713-97f9-4c9f-968b-82c1a896e386}</Project>
+      <Name>Actions.DryIoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Actions\Actions.csproj">
+      <Project>{a8e48ea8-9540-4bb8-b9d2-87635bb11254}</Project>
+      <Name>Actions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Logging.NLog.DryIoc\Logging.NLog.DryIoc.csproj">
+      <Project>{0528f971-fbbf-4ab8-ae47-2cc83ce6da22}</Project>
+      <Name>Logging.NLog.DryIoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Logging.NLog\Logging.NLog.csproj">
+      <Project>{fd45e3a1-f77e-4af6-9baa-1a5ce6161b37}</Project>
+      <Name>Logging.NLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Support.Base\Support.Base.csproj">
+      <Project>{535bdc11-455c-4634-9eb2-6bada6f3ce9d}</Project>
+      <Name>Support.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Support2100287.DryIoc\Support2100287.DryIoc.csproj">
+      <Project>{dc1f2243-45e6-4f33-844d-8c1ad66ccb43}</Project>
+      <Name>Support2100287.DryIoc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestingActionsPlugin.nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

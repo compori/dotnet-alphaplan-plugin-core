@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <RootNamespace>SupportTests</RootNamespace>
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+    <PackageReference Include="Moq" Version="4.2.1510.2205" />
+    <PackageReference Include="xunit" Version="1.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Support2100287Tests\DataContext.cs" Link="DataContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\Support2100287Tests\Factories\*.cs">
+      <Link>Factories\%(Filename)%(Extension)</Link>
+    </Compile>
+    <Compile Include="..\Support2100287Tests\Data\*.cs">
+      <Link>Data\%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Support.Base\Support.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-2850-200\app\Base.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+</Project>

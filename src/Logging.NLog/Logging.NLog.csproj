@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net461</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog</AssemblyName>
+    <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog</RootNamespace>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Martin Monnier</Authors>
+    <Company>Compori</Company>
+    <Description>Simple and small nlog initializer in order to use by plugin assemblys.</Description>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <Copyright>Martin Monnier</Copyright>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Support.Base\Support.Base.csproj" />
+  </ItemGroup>
+  
+</Project>

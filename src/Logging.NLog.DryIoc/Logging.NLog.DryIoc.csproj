@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net461</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</AssemblyName>
+    <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</RootNamespace>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Martin Monnier</Authors>
+    <Company>Compori</Company>
+    <Description>DryIoc DI Registration for nlog initializer.</Description>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <Copyright>Martin Monnier</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logging.NLog\Logging.NLog.csproj" />
+    <ProjectReference Include="..\Support.Base\Support.Base.csproj" />
+  </ItemGroup>
+
+</Project>

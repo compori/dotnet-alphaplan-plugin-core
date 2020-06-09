@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88BD8A79-C248-48B7-927C-18125E3B0980}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestRunnerPlugin</RootNamespace>
+    <AssemblyName>TestRunnerPlugin</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\references\alphaplan-2100-287\Data\Eigene\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\references\alphaplan-2100-287\Data\Eigene\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ApServer">
+      <HintPath>..\..\references\alphaplan-2100-287\aps\ApServer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-2100-287\aps\Base.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll">
+      <Version>4.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="OpenCover">
+      <Version>4.7.922</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Logging.NLog\Logging.NLog.csproj">
+      <Project>{fd45e3a1-f77e-4af6-9baa-1a5ce6161b37}</Project>
+      <Name>Logging.NLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Support2100287.DryIoc\Support2100287.DryIoc.csproj">
+      <Project>{dc1f2243-45e6-4f33-844d-8c1ad66ccb43}</Project>
+      <Name>Support2100287.DryIoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\Support.BaseIntegrationTests\Support.BaseIntegrationTests.csproj">
+      <Project>{057b3acd-9e77-44a0-96b2-99ae9988bd12}</Project>
+      <Name>Support.BaseIntegrationTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\Support2100287Tests\Support2100287Tests.csproj">
+      <Project>{fe5bf0c0-b8fd-4799-9914-77af3e955294}</Project>
+      <Name>Support2100287Tests</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Compori.Testing.Xunit.AssemblyRunner">
+      <Version>0.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestRunnerPlugin.nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

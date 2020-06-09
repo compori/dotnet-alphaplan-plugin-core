@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net461;netstandard2.0</TargetFrameworks>
+    <AssemblyName>Compori.Alphaplan.Plugin.Support.Base.DryIoc</AssemblyName>
+    <RootNamespace>Compori.Alphaplan.Plugin.Support.DryIoc</RootNamespace>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+    <Authors>Martin Monnier</Authors>
+    <Company>Compori</Company>
+    <Description>DryIoc DI Registration for base support.</Description>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <Copyright>Martin Monnier</Copyright>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Support.Base\Support.Base.csproj" />
+  </ItemGroup>
+
+</Project>

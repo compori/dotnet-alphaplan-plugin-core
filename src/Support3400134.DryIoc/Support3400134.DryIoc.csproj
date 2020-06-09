@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <RootNamespace>Compori.Alphaplan.Plugin.Support.DryIoc</RootNamespace>
+    <AssemblyName>Compori.Alphaplan.Plugin.Support.3400134.DryIoc</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PlatformTarget>x86</PlatformTarget>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Source_3400134ZDryIoc_Extensions_CommonVersion2100287Extension Include="..\Support2100287.DryIoc\Extensions\CommonVersion2100287Extension.cs" />
+
+    <Source_3400134ZDryIoc_Extensions_FactoriesApServerVersion2100287Extension Include="..\Support2100287.DryIoc\Extensions\FactoriesApServerVersion2100287Extension.cs" />
+    <Source_3400134ZDryIoc_Extensions_FactoriesApServerVersion2850200Extension Include="..\Support2850200.DryIoc\Extensions\FactoriesApServerVersion2850200Extension.cs" />
+    
+    <Source_3400134ZDryIoc_Extensions_FactoriesWawiVersion2100287Extension Include="..\Support2100287.DryIoc\Extensions\FactoriesWawiVersion2100287Extension.cs" />
+    <Source_3400134ZDryIoc_Extensions_FactoriesWawiVersion2850200Extension Include="..\Support2850200.DryIoc\Extensions\FactoriesWawiVersion2850200Extension.cs" />
+    
+    <Source_3400134ZDryIoc_Extensions_FactoriesWerkzeugeVersion2100287Extensions Include="..\Support2100287.DryIoc\Extensions\FactoriesWerkzeugeVersion2100287Extensions.cs" />
+    
+    <Source_3400134ZDryIoc_Extensions_PluginBaseExtension Include="..\Support2850200.DryIoc\Extensions\PluginBaseExtension.cs" />
+    
+    <Source_3400134ZDryIoc_Extensions_PluginBaseVersion2850200Extension Include="..\Support2850200.DryIoc\Extensions\PluginBaseVersion2850200Extension.cs" />
+    <Source_3400134ZDryIoc_Extensions_PluginBaseVersion2100287Extension Include="..\Support2100287.DryIoc\Extensions\PluginBaseVersion2100287Extension.cs" />
+    
+    <Source_3400134ZDryIoc_Extensions_WrapperVersion2850200Extension Include="..\Support2850200.DryIoc\Extensions\WrapperVersion2850200Extension.cs" />
+
+    <Source_3400134ZDryIoc_Extensions_SupportExtension Include="..\Support2850200.DryIoc\Extensions\SupportExtension.cs" />
+    <Source_3400134ZDryIoc_Registration Include="..\Support2100287.DryIoc\Registration.cs" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_CommonVersion2100287Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_FactoriesApServerVersion2100287Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_FactoriesApServerVersion2850200Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_FactoriesWawiVersion2100287Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_FactoriesWawiVersion2850200Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_FactoriesWerkzeugeVersion2100287Extensions)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_PluginBaseExtension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_PluginBaseVersion2850200Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_PluginBaseVersion2100287Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_SupportExtension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Extensions_WrapperVersion2850200Extension)" DestinationFolder=".\Extensions" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Source_3400134ZDryIoc_Registration)" DestinationFolder=".\" SkipUnchangedFiles="true" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Compori.Base" Version="0.4.0" />
+    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Support.Base.DryIoc\Support.Base.DryIoc.csproj" />
+    <ProjectReference Include="..\Support3400134\Support3400134.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-3400-134\app\Base.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>  
+</Project>

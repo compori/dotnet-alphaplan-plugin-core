@@ -328,3 +328,12 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# External references e.g. Alphaplan via link. ignore all folders and files under references but the README.md
+references/**
+!references/README.md
+
+# cake build related files and directories
+tools/**
+!tools/packages.config
+output
