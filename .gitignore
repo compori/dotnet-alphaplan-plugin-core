@@ -337,3 +337,4 @@ references/**
 tools/**
 !tools/packages.config
 output
+*.ignore.cmd
