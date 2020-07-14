@@ -3,13 +3,17 @@
 namespace Compori.Alphaplan.Plugin.Support.Data
 {
 #pragma warning disable CA2237 // Mark ISerializable types with serializable
+#pragma warning disable CA1032 // Implement standard exception constructors
     public class TableException : Exception
+#pragma warning restore CA1032 // Implement standard exception constructors
 #pragma warning restore CA2237 // Mark ISerializable types with serializable
     {
         /// <summary>
         /// Gets the table.
         /// </summary>
         /// <value>The table.</value>
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        // ReSharper disable once MemberCanBePrivate.Global
         public string Table { get; }
 
         /// <summary>

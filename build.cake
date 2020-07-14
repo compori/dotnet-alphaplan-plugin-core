@@ -144,27 +144,26 @@ Task("Build")
 });
 
 Task("Deploy-Nuget-Packages")
-    // .IsDependentOn("Build")
+    .IsDependentOn("Build")
     .Does(() =>
 {
     var packageFiles = GetFiles("src/**/*.nupkg");
+
     foreach(var packageFile in packageFiles)
     {
         var packageFilename = packageFile.GetFilename();
         var destionation = MakeAbsolute(outputDirectory).CombineWithFilePath(packageFilename);
         CopyFile(packageFile.FullPath, destionation);
     }
+
     // DeleteFiles(MakeAbsolute(outputDirectory).FullPath + "/*.symbols.nupkg");
-        
     packageFiles = GetFiles(MakeAbsolute(outputDirectory).FullPath + "/*.nupkg");
-    
     // Push the package.
-    /*
     NuGetPush(packageFiles, new NuGetPushSettings {
         Source = nugetDeployFeed,
-        ApiKey = nugetDeployApiKey
+        ApiKey = nugetDeployApiKey,
+        SkipDuplicate = true
     });
-    */
 });
 
 Task("Test-With-CodeCoverage")

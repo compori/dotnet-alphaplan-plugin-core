@@ -16,9 +16,8 @@ namespace Compori.Alphaplan.Plugin.Support.DryIoc.Extensions
                 return null;
             }
             registrator.Register<Common.IProtocolProvider, Common.ProtocolProvider>(reuse: Reuse.Singleton);
+            registrator.Register<Common.IErrorScopeFactory, Common.ErrorScopeFactory>(reuse: Reuse.Singleton);
             return registrator;
         }
     }
-
-
 }

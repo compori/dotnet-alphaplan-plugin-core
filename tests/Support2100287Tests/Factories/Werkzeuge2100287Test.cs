@@ -50,5 +50,19 @@ namespace SupportTests.Factories
 
             Assert.IsAssignableFrom<IStatusMonitor>(sut1);
         }
+
+        [Fact()]
+        public void TestResolveIIniDateiMonitor()
+        {
+            var sut1 = this.Container.Resolve<IIniDatei>();
+            Assert.NotNull(sut1);
+
+            var sut2 = this.Container.Resolve<IIniDatei>();
+            Assert.NotNull(sut2);
+
+            Assert.Same(sut1, sut2);
+
+            Assert.IsAssignableFrom<IIniDatei>(sut1);
+        }
     }
 }

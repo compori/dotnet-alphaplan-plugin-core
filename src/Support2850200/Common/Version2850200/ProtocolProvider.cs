@@ -40,9 +40,8 @@ namespace Compori.Alphaplan.Plugin.Support.Common.Version2850200
         void IProtocolProvider.Write(ProtocolPriority priority, string message, Exception exception)
         {
             var exceptionText = exception != null ? $"[Exception]: {exception.Message}\n[Exception]: Stacktrace - {exception.StackTrace}" : "";
-            var messageText = "FEHLER: " 
-                              + (message ?? (exception != null ? "Ein Ausnahme ist aufgetreten. " + exception.Message : "Unbekannter Fehler"))
-                              + (exception == null ? "" : $"\n{exceptionText}");
+            var messageText = message;
+            
             
             int priorityValue;
             switch (priority)
@@ -55,9 +54,15 @@ namespace Compori.Alphaplan.Plugin.Support.Common.Version2850200
                     break;
                 case ProtocolPriority.Warning:
                     priorityValue = 2;
+                    messageText = "WARNUNG: " 
+                                  + (message ?? (exception != null ? "Ein Ausnahme ist aufgetreten. " + exception.Message : "Unbekannter Fehler"))
+                                  + (exception == null ? "" : $"\n{exceptionText}");
                     break;
                 case ProtocolPriority.Error:
                     priorityValue = 1;
+                    messageText = "FEHLER: " 
+                                  + (message ?? (exception != null ? "Ein Ausnahme ist aufgetreten. " + exception.Message : "Unbekannter Fehler"))
+                                  + (exception == null ? "" : $"\n{exceptionText}");
                     break;
                 case ProtocolPriority.None:
                     priorityValue = 0;

@@ -8,9 +8,12 @@
 
   <PropertyGroup>
     <PlatformTarget>x86</PlatformTarget>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.2.1</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
+    <PackageId>Compori.Alphaplan.Plugin.Support.2850200</PackageId>
+    <Authors>Martin Monnier</Authors>
+    <Product>Support Library Alphaplan 2850.200</Product>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,8 +33,6 @@
 
   <ItemGroup>    
     <Source_2850200Z_Support2100287_Data Include="..\Support2100287\Data\*.cs"/>
-  </ItemGroup> 
-  <ItemGroup>    
     <Source_2850200Z_Support2100287_Data_SqlClient Include="..\Support2100287\Data\SqlClient\**\*.cs"/>
   </ItemGroup> 
 

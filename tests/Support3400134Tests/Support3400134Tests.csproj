@@ -25,6 +25,9 @@
     <Compile Include="..\Support2100287Tests\Factories\*.cs">
       <Link>Factories\%(Filename)%(Extension)</Link>
     </Compile>
+    <Compile Include="..\Support2100287Tests\Common\*.cs">
+      <Link>Common\%(Filename)%(Extension)</Link>
+    </Compile>
     <Compile Include="..\Support2850200Tests\Factories\*.cs">
       <Link>Factories\%(Filename)%(Extension)</Link>
     </Compile>
@@ -47,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Common\" />
   </ItemGroup>
 
 </Project>
