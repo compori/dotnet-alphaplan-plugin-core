@@ -2,7 +2,7 @@
 
 namespace Compori.Alphaplan.Plugin.Actions.DryIoc
 {
-    public class ActionOptionResolver : IActionOptionResolver
+    public class ActionOptionResolver : IRequestResolver
     {
         /// <summary>
         /// Gets the container.
@@ -24,9 +24,9 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
         /// </summary>
         /// <param name="verb">The verb.</param>
         /// <returns>IActionOption.</returns>
-        private IActionOption Resolve(string verb)
+        private IRequest Resolve(string verb)
         {
-            return this.Container.Resolve<IActionOption>(serviceKey: verb, ifUnresolved: IfUnresolved.ReturnDefaultIfNotRegistered);
+            return this.Container.Resolve<IRequest>(serviceKey: verb, ifUnresolved: IfUnresolved.ReturnDefaultIfNotRegistered);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
         /// </summary>
         /// <param name="verb">The verb.</param>
         /// <returns>IActionOption.</returns>
-        IActionOption IActionOptionResolver.Resolve(string verb)
+        IRequest IRequestResolver.Resolve(string verb)
         {
             return this.Resolve(verb);
         }

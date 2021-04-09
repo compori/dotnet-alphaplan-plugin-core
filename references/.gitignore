@@ -1,0 +1,4 @@
+# External references e.g. Alphaplan via link. ignore all folders and files under this folder but the README.md
+*
+!.gitignore
+!README.md

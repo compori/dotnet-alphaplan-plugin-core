@@ -4,18 +4,18 @@ using Compori.Alphaplan.Plugin.Support.Common;
 
 namespace Compori.Alphaplan.Plugin.Actions.Testing
 {
-    public class EchoActionOption : ActionOption
+    public class LoggingRequest : Request
     {
         /// <summary>
         /// Der Name der Aktion
         /// </summary>
-        public const string Name = "testing.echo";
+        public const string Name = "testing.logging";
 
         /// <summary>
         /// Liefert den Namen der Aktion zurück.
         /// </summary>
         /// <value>Der Aktionsname.</value>
-        public override string Verb => Name;
+        public override string RequestName => Name;
 
         /// <summary>
         /// Liefert oder setzt die Nachricht.
@@ -27,7 +27,7 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         /// Liefert die Aktion zurück.
         /// </summary>
         /// <value>Die Aktion.</value>
-        private EchoAction Action { get; }
+        private LoggingAction Action { get; }
 
         /// <summary>
         /// Liefert die Api für das Alphaplan Schnittstellen Protokoll.
@@ -36,11 +36,11 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         private IProtocol Protocol { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EchoActionOption"/> class.
+        /// Initializes a new instance of the <see cref="LoggingRequest"/> class.
         /// </summary>
         /// <param name="protocol">Das Alphaplan Schnittstellen Protokoll.</param>
         /// <param name="action">Die Aktion.</param>
-        public EchoActionOption(IProtocol protocol, EchoAction action)
+        public LoggingRequest(IProtocol protocol, LoggingAction action)
         {
             this.Action = action;
             this.Protocol = protocol;
@@ -56,7 +56,7 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
             sb.Append(string.Format(CultureInfo.InvariantCulture, " - Nachricht _________ {0}", this.Message ?? "N/A"));
             this.Protocol.Write(sb.ToString());
 
-            this.Action.Echo(this.Message ?? "N/A");
+            this.Action.Execute(this.Message ?? "Test Test Test");
         }
 
         /// <summary>

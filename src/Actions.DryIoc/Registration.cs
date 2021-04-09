@@ -15,8 +15,8 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
                 return;
             }
 
-            registrator.Register<ActionOptionFactory>(reuse: Reuse.Singleton);
-            registrator.Register<ActionDispatcher>(reuse: Reuse.Singleton);
+            registrator.Register<RequestFactory>(reuse: Reuse.Singleton);
+            registrator.Register<Dispatcher>(reuse: Reuse.Singleton);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
             Guard.AssertArgumentIsNotNull(registrator, nameof(registrator));
             Guard.AssertArgumentIsNotNull(container, nameof(container));
 
-            registrator.UseInstance<IActionOptionResolver>(new ActionOptionResolver(container));
+            registrator.UseInstance<IRequestResolver>(new ActionOptionResolver(container));
         }
 
         /// <summary>
@@ -48,13 +48,13 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
         /// <typeparam name="TActionOption">The type of the t action option.</typeparam>
         /// <param name="registrator">The registrator.</param>
         /// <param name="verb">The verb.</param>
-        public static void RegisterAction<TAction, TActionOption>(IRegistrator registrator, string verb) where TActionOption : IActionOption
+        public static void RegisterAction<TAction, TActionOption>(IRegistrator registrator, string verb) where TActionOption : IRequest
         {
             if (registrator == null)
             {
                 return;
             }
-            registrator.Register<IActionOption, TActionOption>(reuse: Reuse.Singleton, serviceKey: verb);
+            registrator.Register<IRequest, TActionOption>(reuse: Reuse.Singleton, serviceKey: verb);
             registrator.Register<TAction>(reuse: Reuse.Singleton);
         }
 
@@ -70,8 +70,8 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
             }
 
             // Testing
-            RegisterAction<Testing.EchoAction, Testing.EchoActionOption>(registrator, Testing.EchoActionOption.Name);
-            RegisterAction<Testing.LoggingAction, Testing.LoggingActionOption>(registrator, Testing.LoggingActionOption.Name);
+            RegisterAction<Testing.EchoAction, Testing.EchoRequest>(registrator, Testing.EchoRequest.Name);
+            RegisterAction<Testing.LoggingAction, Testing.LoggingRequest>(registrator, Testing.LoggingRequest.Name);
         }
     }
 }

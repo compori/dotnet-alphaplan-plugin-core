@@ -78,7 +78,10 @@ namespace Plugin
                     string.Join(" ", arguments),
                     Assembly.GetExecutingAssembly().GetName().Name + ".dll");
                 
-                return container.Resolve<ActionDispatcher>().Dispatch(arguments);
+                return container
+                    .Resolve<Dispatcher>()
+                    .Dispatch(arguments)
+                    .Succeeded;
             }
         }
     }

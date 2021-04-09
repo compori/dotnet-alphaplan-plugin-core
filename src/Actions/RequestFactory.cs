@@ -2,19 +2,19 @@
 
 namespace Compori.Alphaplan.Plugin.Actions
 {
-    public class ActionOptionFactory
+    public class RequestFactory
     {
         /// <summary>
         /// Gets the action option resolver.
         /// </summary>
         /// <value>The action option resolver.</value>
-        private IActionOptionResolver Resolver { get; }
+        private IRequestResolver Resolver { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActionOptionFactory"/> class.
+        /// Initializes a new instance of the <see cref="RequestFactory"/> class.
         /// </summary>
         /// <param name="resolver">The action option resolver.</param>
-        public ActionOptionFactory(IActionOptionResolver resolver)
+        public RequestFactory(IRequestResolver resolver)
         {
             this.Resolver = resolver;
         }
@@ -24,21 +24,21 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// </summary>
         /// <param name="verb">The action verb.</param>
         /// <param name="parserResult">The argument parser results.</param>
-        /// <returns>ActionOption.</returns>
-        public IActionOption Create(string verb, ParserResult parserResult)
+        /// <returns>Request.</returns>
+        public IRequest Create(string verb, ParserResult parserResult)
         {
             if (string.IsNullOrEmpty(verb))
             {
                 return null;
             }
-            var option = this.Resolver.Resolve(verb);
-            if (option == null)
+            var request = this.Resolver.Resolve(verb);
+            if (request == null)
             {
                 return null;
             }
 
-            option.Arguments = parserResult;
-            return option;
+            request.Arguments = parserResult;
+            return request;
         }
     }
 }
