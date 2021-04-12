@@ -63,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.NLog.DryIoc", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Support.Base.DryIoc", "src\Support.Base.DryIoc\Support.Base.DryIoc.csproj", "{30E099AA-3D3F-4735-8C9E-E25A4F8AC249}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions", "src\Actions\Actions.csproj", "{A8E48EA8-9540-4BB8-B9D2-87635BB11254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions", "src\Actions\Actions.csproj", "{A8E48EA8-9540-4BB8-B9D2-87635BB11254}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{DE9F10E4-B8A4-40FD-B6DC-BBD901DB98D3}"
 EndProject
@@ -71,9 +71,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{6060
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{6849C0D2-47B0-4720-8382-42DB9AE19D37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.DryIoc", "src\Actions.DryIoc\Actions.DryIoc.csproj", "{42240713-97F9-4C9F-968B-82C1A896E386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.DryIoc", "src\Actions.DryIoc\Actions.DryIoc.csproj", "{42240713-97F9-4C9F-968B-82C1A896E386}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2D73D855-6352-4FE3-AC66-7FE9B2A93682}"
+	ProjectSection(SolutionItems) = preProject
+		samples\vbscript-integration.MD = samples\vbscript-integration.MD
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingActionsPlugin2100287", "samples\TestingActionsPlugin2100287\TestingActionsPlugin2100287.csproj", "{9ACC3B16-3561-4DB7-99A5-125021B281F5}"
 EndProject

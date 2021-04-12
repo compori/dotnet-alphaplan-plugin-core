@@ -23,8 +23,8 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// <value>Das Ergebnis.</value>
         public virtual IDictionary<string, string> Result => new Dictionary<string, string>
         {
-            { "request.Name", this.Request.Name },
-            { "request.Serial", this.Request.Serial },
+            { "request.Name", this.Request?.Name ?? "" },
+            { "request.Serial", this.Request?.Serial ?? "" },
             { "succeeded",  this.Succeeded ? "1" : "0" }
         };
 
