@@ -1,4 +1,6 @@
-﻿namespace Compori.Alphaplan.Plugin.Actions
+﻿using System.Collections.Generic;
+
+namespace Compori.Alphaplan.Plugin.Actions
 {
     public interface IResponse
     {
@@ -13,5 +15,17 @@
         /// </summary>
         /// <value><c>true</c> if succeeded; otherwise, <c>false</c>.</value>
         bool Succeeded { get; }
+
+        /// <summary>
+        /// Liefert ein Wörterbuch mit Ergebnisdaten zurück.
+        /// </summary>
+        /// <value>Das Ergebnis.</value>
+        IDictionary<string, string> Result { get; }
+
+        /// <summary>
+        /// Liefert eine Liste mit Ergebnisdaten zurück.
+        /// </summary>
+        /// <value>Das Ergebnis.</value>
+        IList<string> ResultList { get; }
     }
 }

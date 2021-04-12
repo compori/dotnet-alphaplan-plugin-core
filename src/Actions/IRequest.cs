@@ -9,7 +9,13 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// Gets the name of the request.
         /// </summary>
         /// <value>The request's name.</value>
-        string RequestName { get; }
+        string Name { get; }
+
+        /// <summary>
+        /// Gets an optional serial of the request.
+        /// </summary>
+        /// <value>The request's serial.</value>
+        string Serial { get; }
 
         /// <summary>
         /// Gets the arguments.

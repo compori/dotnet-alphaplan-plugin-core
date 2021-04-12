@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Compori.Alphaplan.Plugin.Actions
 {
@@ -36,6 +37,28 @@ namespace Compori.Alphaplan.Plugin.Actions
         {
             Message = message;
             Exception = exception;
+        }
+
+        /// <summary>
+        /// Liefert ein Array mit Ergebnisdaten zurück.
+        /// </summary>
+        /// <value>Das Ergebnis.</value>
+        public override IDictionary<string, string> Result {
+            get
+            {
+                var result = base.Result;
+                result
+                    .Add("failureMessage", (this.Message ?? ""));
+
+                if (this.Exception == null)
+                {
+                    return result;
+                }
+
+                result.Add("exception.Message", this.Exception.Message);
+                result.Add("exception.StackTrace", this.Exception.StackTrace);
+                return result;
+            }
         }
     }
 }

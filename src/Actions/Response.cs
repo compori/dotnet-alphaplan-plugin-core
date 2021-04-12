@@ -1,4 +1,7 @@
-﻿namespace Compori.Alphaplan.Plugin.Actions
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Compori.Alphaplan.Plugin.Actions
 {
     public class Response : IResponse
     {
@@ -13,6 +16,23 @@
         /// </summary>
         /// <value><c>true</c> if succeeded; otherwise, <c>false</c>.</value>
         public bool Succeeded { get; }
+
+        /// <summary>
+        /// Liefert ein Wörterbuch mit Ergebnisdaten zurück.
+        /// </summary>
+        /// <value>Das Ergebnis.</value>
+        public virtual IDictionary<string, string> Result => new Dictionary<string, string>
+        {
+            { "request.Name", this.Request.Name },
+            { "request.Serial", this.Request.Serial },
+            { "succeeded",  this.Succeeded ? "1" : "0" }
+        };
+
+        /// <summary>
+        /// Liefert eine Liste mit Ergebnisdaten zurück.
+        /// </summary>
+        /// <value>Das Ergebnis.</value>
+        public IList<string> ResultList => this.Result.Select(v => v.Key + "=" + (v.Value ?? "")).ToList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Response"/> class.

@@ -29,7 +29,7 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
             Guard.AssertArgumentIsNotNull(registrator, nameof(registrator));
             Guard.AssertArgumentIsNotNull(container, nameof(container));
 
-            registrator.UseInstance<IRequestResolver>(new ActionOptionResolver(container));
+            registrator.UseInstance<IRequestResolver>(new RequestResolver(container));
         }
 
         /// <summary>
@@ -45,17 +45,17 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
         /// Registers the action.
         /// </summary>
         /// <typeparam name="TAction">The type of the t action.</typeparam>
-        /// <typeparam name="TActionOption">The type of the t action option.</typeparam>
+        /// <typeparam name="TRequest">The type of the t action option.</typeparam>
         /// <param name="registrator">The registrator.</param>
         /// <param name="verb">The verb.</param>
-        public static void RegisterAction<TAction, TActionOption>(IRegistrator registrator, string verb) where TActionOption : IRequest
+        public static void RegisterAction<TAction, TRequest>(IRegistrator registrator, string verb) where TRequest : IRequest
         {
             if (registrator == null)
             {
                 return;
             }
-            registrator.Register<IRequest, TActionOption>(reuse: Reuse.Singleton, serviceKey: verb);
-            registrator.Register<TAction>(reuse: Reuse.Singleton);
+            registrator.Register<IRequest, TRequest>(serviceKey: verb);
+            registrator.Register<TAction>();
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
             }
 
             // Testing
-            RegisterAction<Testing.EchoAction, Testing.EchoRequest>(registrator, Testing.EchoRequest.Name);
-            RegisterAction<Testing.LoggingAction, Testing.LoggingRequest>(registrator, Testing.LoggingRequest.Name);
+            RegisterAction<Testing.EchoAction, Testing.EchoRequest>(registrator, Testing.EchoRequest.RequestName);
+            RegisterAction<Testing.LoggingAction, Testing.LoggingRequest>(registrator, Testing.LoggingRequest.RequestName);
         }
     }
 }

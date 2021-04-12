@@ -9,7 +9,13 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// Gets the name of the request.
         /// </summary>
         /// <value>The request's name.</value>
-        public abstract string RequestName { get; }
+        public abstract string Name { get; }
+
+        /// <summary>
+        /// Gets an optional serial of the request.
+        /// </summary>
+        /// <value>The request's serial.</value>
+        public string Serial => this.Arguments?.GetValue("AKTION_SERIAL", "") ?? "";
 
 #if NET40_OR_GREATER
 
@@ -70,20 +76,19 @@ namespace Compori.Alphaplan.Plugin.Actions
             this.CancellationToken = token;
             this.OnInvoke();
         }
+
 #endif
-        /// <summary>
-        /// Gets the response.
-        /// </summary>
-        /// <value>The response.</value>
-        public IResponse Response => GetResponse();
 
         /// <summary>
         /// Gets the response.
         /// </summary>
-        /// <returns>IResponse.</returns>
-        protected virtual IResponse GetResponse()
-        {
-            return new SuccessResponse(this);
-        }
+        /// <value>The response.</value>
+        protected IResponse Response { get; set; }
+
+        /// <summary>
+        /// Gets the response.
+        /// </summary>
+        /// <value>The response.</value>
+        IResponse IRequest.Response => this.Response;
     }
 }

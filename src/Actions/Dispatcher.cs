@@ -83,7 +83,9 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// Dispatches an action with the specified arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        public IResponse Dispatch(IEnumerable<string> arguments)
+        /// <param name="fallbackArguments">The fallback arguments.</param>
+        /// <returns>IResponse.</returns>
+        public IResponse Dispatch(IEnumerable<string> arguments, IEnumerable<string> fallbackArguments = null)
         {
             
             var requestArguments = GetRequestArguments(arguments);
@@ -97,13 +99,31 @@ namespace Compori.Alphaplan.Plugin.Actions
 
             // Request could not be found.
             var sb = new StringBuilder();
-            sb.Append("[Fehler]");
-            sb.AppendLine(
-                ! string.IsNullOrEmpty(requestName) 
-                ? $"Die Aktion '{requestName}' ist unbekannt. Bitte prüfen Sie den Namen." 
-                : "Es konnte keine Aktion ermittelt werden. Bitte prüfen Sie in der Parameterübergabe den Wert für 'aktion=...'.");
-            this.Protocol.Error(sb.ToString());
+            sb.AppendLine(!string.IsNullOrEmpty(requestName) 
+                    ? $"Die Aktion '{requestName}' ist unbekannt. Bitte prüfen Sie den Namen." 
+                    : "Es konnte keine Aktion ermittelt werden. Bitte prüfen Sie in der Parameterübergabe den Wert für 'aktion=...'.");
 
+            if (fallbackArguments != null)
+            {
+                requestArguments = GetRequestArguments(fallbackArguments);
+                requestName = GetRequestName(requestArguments);
+                request = this.CreateRequest(requestArguments);
+                
+                if (request != null)
+                {
+                    sb.AppendLine($"Starte die Fallbackaktion '{request.Name}'.");
+                    this.Protocol.Info(sb.ToString());
+
+                    return this.Dispatch(request);
+                }
+
+                sb.AppendLine(!string.IsNullOrEmpty(requestName) 
+                        ? $"Die Fallbackaktion '{requestName}' ist unbekannt. Bitte prüfen Sie den Namen." 
+                        : "Es konnte keine Fallbackaktion ermittelt werden. Bitte prüfen Sie in der Parameterübergabe den Wert für 'aktion=...'.");
+            }
+
+            
+            this.Protocol.Error("[Fehler] "+ sb);
             return new FailureResponse(null, sb.ToString());
         }
 
@@ -119,9 +139,9 @@ namespace Compori.Alphaplan.Plugin.Actions
             try
             {
                 // Schreibe die Aufrufparameter
-                this.Protocol.Info($"Starte Aktion '{request.RequestName}'");
+                this.Protocol.Info($"Starte Aktion '{request.Name}'");
                 request.Invoke();
-                return request.Response;
+                return request.Response ?? new SuccessResponse(request);
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
@@ -133,9 +153,9 @@ namespace Compori.Alphaplan.Plugin.Actions
             finally
             {
 #if NET35
-                this.Protocol.Info($"Aktion '{request.RequestName}' beendet. Ausführungsdauer: {stopwatch.Elapsed}");
+                this.Protocol.Info($"Aktion '{request.Name}' beendet. Ausführungsdauer: {stopwatch.Elapsed}");
 #else       
-                this.Protocol.Info($"Aktion '{request.RequestName}' beendet. Ausführungsdauer: {stopwatch.Elapsed.ToString("g", CultureInfo.InvariantCulture)}");
+                this.Protocol.Info($"Aktion '{request.Name}' beendet. Ausführungsdauer: {stopwatch.Elapsed.ToString("g", CultureInfo.InvariantCulture)}");
 #endif
             }
         }
@@ -148,8 +168,9 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// </summary>
         /// <param name="arguments">The arguments.</param>
         /// <param name="token">A cancel token.</param>
+        /// <param name="fallbackArguments">The fallback arguments.</param>
         /// <returns>IResponse.</returns>
-        public IResponse Dispatch(IEnumerable<string> arguments, CancellationToken token)
+        public IResponse Dispatch(IEnumerable<string> arguments, CancellationToken token, IEnumerable<string> fallbackArguments = null)
         {
             
             var requestArguments = GetRequestArguments(arguments);
@@ -163,13 +184,30 @@ namespace Compori.Alphaplan.Plugin.Actions
 
             // Request could not be found.
             var sb = new StringBuilder();
-            sb.Append("[Fehler]");
             sb.AppendLine(
                 ! string.IsNullOrEmpty(requestName) 
                     ? $"Die Aktion '{requestName}' ist unbekannt. Bitte prüfen Sie den Namen." 
                     : "Es konnte keine Aktion ermittelt werden. Bitte prüfen Sie in der Parameterübergabe den Wert für 'aktion=...'.");
-            this.Protocol.Error(sb.ToString());
+            if (fallbackArguments != null)
+            {
+                requestArguments = GetRequestArguments(fallbackArguments);
+                requestName = GetRequestName(requestArguments);
+                request = this.CreateRequest(requestArguments);
+                
+                if (request != null)
+                {
+                    sb.AppendLine($"Starte die Fallbackaktion '{request.Name}'.");
+                    this.Protocol.Info(sb.ToString());
 
+                    return this.Dispatch(request, token);
+                }
+
+                sb.AppendLine(!string.IsNullOrEmpty(requestName) 
+                    ? $"Die Fallbackaktion '{requestName}' ist unbekannt. Bitte prüfen Sie den Namen." 
+                    : "Es konnte keine Fallbackaktion ermittelt werden. Bitte prüfen Sie in der Parameterübergabe den Wert für 'aktion=...'.");
+            }
+            
+            this.Protocol.Error("[Fehler] "+ sb);
             return new FailureResponse(null, sb.ToString());
         }
 
@@ -186,9 +224,9 @@ namespace Compori.Alphaplan.Plugin.Actions
             try
             {
                 // Schreibe die Aufrufparameter
-                this.Protocol.Info($"Starte Aktion '{request.RequestName}'");
+                this.Protocol.Info($"Starte Aktion '{request.Name}'");
                 request.Invoke(token);
-                return request.Response;
+                return request.Response ?? new SuccessResponse(request);
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
@@ -199,7 +237,7 @@ namespace Compori.Alphaplan.Plugin.Actions
 #pragma warning restore CA1031 // Do not catch general exception types
             finally
             {
-                this.Protocol.Info($"Aktion '{request.RequestName}' beendet. Ausführungsdauer: {stopwatch.Elapsed.ToString("g", CultureInfo.InvariantCulture)}");
+                this.Protocol.Info($"Aktion '{request.Name}' beendet. Ausführungsdauer: {stopwatch.Elapsed.ToString("g", CultureInfo.InvariantCulture)}");
             }
         }
 #endif

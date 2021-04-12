@@ -9,13 +9,13 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         /// <summary>
         /// Der Name der Aktion
         /// </summary>
-        public const string Name = "testing.logging";
+        public const string RequestName = "testing.logging";
 
         /// <summary>
         /// Liefert den Namen der Aktion zurück.
         /// </summary>
         /// <value>Der Aktionsname.</value>
-        public override string RequestName => Name;
+        public override string Name => RequestName;
 
         /// <summary>
         /// Liefert oder setzt die Nachricht.

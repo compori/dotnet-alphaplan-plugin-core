@@ -2,7 +2,7 @@
 
 namespace Compori.Alphaplan.Plugin.Actions.DryIoc
 {
-    public class ActionOptionResolver : IRequestResolver
+    public class RequestResolver : IRequestResolver
     {
         /// <summary>
         /// Gets the container.
@@ -11,10 +11,10 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
         private IContainer Container { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActionOptionResolver"/> class.
+        /// Initializes a new instance of the <see cref="RequestResolver"/> class.
         /// </summary>
         /// <param name="container">The container.</param>
-        public ActionOptionResolver(IContainer container)
+        public RequestResolver(IContainer container)
         {
             this.Container = container;
         }

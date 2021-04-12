@@ -9,13 +9,13 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         /// <summary>
         /// Der Name der Aktion
         /// </summary>
-        public const string Name = "testing.echo";
+        public const string RequestName = "testing.echo";
 
         /// <summary>
         /// Liefert den Namen der Aktion zurück.
         /// </summary>
         /// <value>Der Aktionsname.</value>
-        public override string RequestName => Name;
+        public override string Name => RequestName;
 
         /// <summary>
         /// Liefert oder setzt die Nachricht.
@@ -56,7 +56,8 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
             sb.Append(string.Format(CultureInfo.InvariantCulture, " - Nachricht _________ {0}", this.Message ?? "N/A"));
             this.Protocol.Write(sb.ToString());
 
-            this.Action.Echo(this.Message ?? "N/A");
+            var result = this.Action.Echo(this.Message ?? "N/A");
+            this.Response = new EchoResponse(this, result);
         }
 
         /// <summary>

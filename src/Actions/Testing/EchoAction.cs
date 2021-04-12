@@ -24,9 +24,11 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         /// Echoes the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Echo(string message)
+        public string Echo(string message)
         {
-            this.Protocol.Info("Echo: " + new string(message.Reverse().ToArray()));
+            var echo = new string(message.Reverse().ToArray());
+            this.Protocol.Info("Echo: " + echo);
+            return echo;
         }
     }
 }
