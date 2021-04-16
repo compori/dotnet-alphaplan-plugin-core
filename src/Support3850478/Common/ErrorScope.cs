@@ -46,6 +46,10 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         /// <returns>System.String.</returns>
         private string GetErrorDescription(Exception ex)
         {
+            if (ex?.Data == null)
+            {
+                return "";
+            }
             return this.Tools.GetErrorText(ex);
         }
 
@@ -56,6 +60,10 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         /// <returns>System.Int32.</returns>
         private int GetErrorCode(Exception ex)
         {
+            if (ex?.Data == null)
+            {
+                return 0;
+            }
             return this.Tools.GetErrorNumber(ex);
         }
 
@@ -66,6 +74,10 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         /// <returns><c>true</c> wenn die Ausnahme eine Alphaplan ausnahme ist; andernfalls, <c>false</c>.</returns>
         private bool IsApObjectsException(Exception ex)
         {
+            if (ex == null)
+            {
+                return false;
+            }
             return this.Tools.GetErrorNumber(ex) != 0;
         }
 
