@@ -1,6 +1,7 @@
 ﻿using Base.ApServer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Compori.Alphaplan.Plugin.Support.Data
 {
@@ -30,7 +31,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets or sets the current filter.
         /// </summary>
         /// <value>The current filter.</value>
-        private string Filter { get; set; }
+        private List<string> Filter { get; set; }
 
         /// <summary>
         /// Gets the table factory.
@@ -73,7 +74,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
             this.Writer = writer;
             this.Handle = handle;
             this.Constraints = new List<IntPtr>();
-            this.Filter = string.Empty;
+            this.Filter = new List<string>();
             this.Name = name;
             this.PrimaryKeyField = primaryKeyField;
         }
@@ -114,22 +115,75 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         }
 
         /// <summary>
-        /// Sets the filter.
+        /// Seeks to a record with the specified field value.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        private ITable Where(string field, int value)
+        {
+            Guard.AssertArgumentIsNotNullOrWhiteSpace(field, nameof(field));
+            return this.Where($"{field}={value:D}");
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>ITable.</returns>
+        private ITable AndWhere(string filter)
+        {
+            Guard.AssertArgumentIsNotNullOrWhiteSpace(filter, nameof(filter));
+            return this.Where(filter, false);
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        private ITable AndWhere(string field, string value)
+        {
+            Guard.AssertArgumentIsNotNullOrWhiteSpace(field, nameof(field));
+            Guard.AssertArgumentIsNotNull(value, nameof(value));
+            return this.AndWhere($"{field}='{value.Replace("'", "''")}'");
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        private ITable AndWhere(string field, int value)
+        {
+            Guard.AssertArgumentIsNotNullOrWhiteSpace(field, nameof(field));
+            return this.AndWhere($"{field}={value:D}");
+        }
+
+        /// <summary>
+        /// Sets the filter.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="clear">if set to <c>true</c> [clear].</param>
+        /// <returns>ITable.</returns>
+        /// <exception cref="TableFilterException">Could not set filter.</exception>
         /// <exception cref="TableException">Could not set filter.</exception>
-        private ITable Where(string filter)
+        private ITable Where(string filter, bool clear = true)
         {
             Guard.AssertArgumentIsNotNullOrWhiteSpace(filter, nameof(filter));
 
-            // Entferne Einschränkungen
-            this.ClearConstraint();
+            if (clear)
+            {
+                // Entferne Einschränkungen
+                this.ClearConstraint();
+            }
             
             // setting Filter
             var filterClone = (string)filter.Clone();
+            this.Filter.Add(filterClone);
 
-            this.Filter = filterClone;
             var result = this.Writer.AddConstraintViaWhereString(this.Handle, ref filterClone);
             this.Constraints.Add(result);
 
@@ -150,6 +204,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
             {
                 this.Writer.ClearConstraint(constraint);
             }
+            this.Filter.Clear();
             this.Constraints.Clear();
         }
 
@@ -166,7 +221,6 @@ namespace Compori.Alphaplan.Plugin.Support.Data
             //{
             //    throw new TableException(this.Name,"Could not clear filter.");
             //}
-            this.Filter = string.Empty;
             return this;
         }
 
@@ -572,7 +626,16 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets the current filter.
         /// </summary>
         /// <value>The current filter.</value>
-        string ITable.Filter => this.Filter;
+        string ITable.Filter => this.Filter.Count > 1
+            ? "(" + string.Join(") AND (", this.Filter.ToArray()) + ")"
+            : this.Filter.FirstOrDefault() ?? string.Empty;
+
+        /// <summary>
+        /// Gets the current filter.
+        /// </summary>
+        /// <value>The current filter.</value>
+        string[] ITable.FilterList => this.Filter.ToArray();
+
 
         /// <summary>
         /// Gets the identifier in primary key field.
@@ -618,6 +681,50 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         {
             return this.Where(filter);
         }
+
+        /// <summary>
+        /// Seeks to a record with the specified field value.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable ITable.Where(string field, int value)
+        {
+            return this.Where(field, value);
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <returns>ITable.</returns>
+        ITable ITable.AndWhere(string filter)
+        {
+            return this.AndWhere(filter);
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable ITable.AndWhere(string field, string value)
+        {
+            return this.AndWhere(field, value);
+        }
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable ITable.AndWhere(string field, int value)
+        {
+            return this.AndWhere(field, value);
+        }
+
 
         /// <summary>
         /// Gets the value of the field from current record.

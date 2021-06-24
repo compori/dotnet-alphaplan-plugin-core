@@ -162,5 +162,89 @@ namespace Support.BaseIntegrationTests.Data
                 Assert.False(sut.Last());
             }
         }
+
+        [Fact]
+        public void TestFilter()
+        {
+            var unique = Guid.NewGuid().ToString("N");
+            var idList = new Dictionary<int, HashSet<int>>();
+            const int records = 10;
+
+            using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
+            {
+                for(var i = 0; i < records; i++)
+                {
+                    var modulus = i % 2;
+
+                    sut.Create()
+                        .Set("K_LongValue", modulus)
+                        .Set("K_TextValue255", unique);
+                    sut.Update();
+                    var id = sut.Id;
+                    Assert.True(id > 0);
+                    if (!idList.ContainsKey(modulus))
+                    {
+                        idList.Add(modulus, new HashSet<int>());
+                    }
+                    idList[modulus].Add(id);
+                }
+            }
+
+            var forwardIdList = new HashSet<int>();
+
+            using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
+            {
+                var modulus = 0;
+                sut
+                    .Where("K_TextValue255", unique)
+                    .AndWhere("K_LongValue", modulus);
+
+                Assert.True(sut.First());
+                do
+                {
+                    var id = sut.Id;
+                    Assert.Contains(id, idList[modulus]);
+                    forwardIdList.Add(sut.Id);
+                } while (sut.Next());
+
+                Assert.Equal(idList[modulus].OrderBy(v => v), forwardIdList.OrderBy(v => v));
+
+                forwardIdList.Clear();
+
+                modulus = 1;
+                sut
+                    .Where("K_TextValue255", unique)
+                    .AndWhere("K_LongValue", modulus);
+
+                Assert.True(sut.First());
+                do
+                {
+                    var id = sut.Id;
+                    Assert.Contains(id, idList[modulus]);
+                    forwardIdList.Add(sut.Id);
+                } while (sut.Next());
+
+                Assert.Equal(idList[modulus].OrderBy(v => v), forwardIdList.OrderBy(v => v));
+            }
+
+            using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
+            {
+                foreach (var idList2 in idList)
+                {
+                    foreach (var id in idList2.Value)
+                    {
+                        sut.Seek(id);
+                        sut.Delete();
+                    }
+                }
+            }
+
+            using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
+            {
+                Assert.Throws<TableFilterException>(() => sut.Where("K_TextValue255", unique));
+                Assert.False(sut.First());
+                Assert.False(sut.Last());
+            }
+        }
     }
 }

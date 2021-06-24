@@ -29,6 +29,12 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         string Filter { get; }
 
         /// <summary>
+        /// Gets the current filter items.
+        /// </summary>
+        /// <value>The current filter.</value>
+        string[] FilterList { get; }
+
+        /// <summary>
         /// Clears the filter.
         /// </summary>
         ITable Clear();
@@ -46,6 +52,36 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// <param name="value">The value.</param>
         /// <returns>ITable.</returns>
         ITable Where(string field, string value);
+
+        /// <summary>
+        /// Seeks to a record with the specified field value.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable Where(string field, int value);
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        ITable AndWhere(string filter);
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable AndWhere(string field, string value);
+
+        /// <summary>
+        /// Sets the filter with and to the current filter.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>ITable.</returns>
+        ITable AndWhere(string field, int value);
 
         /// <summary>
         /// Seeks to a record withe the specified identifier as primary key.
