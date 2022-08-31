@@ -12,6 +12,14 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         bool IsAlphaplanException(Exception ex);
 
         /// <summary>
+        /// Extrahiert die übergebenen Ausnahme und prüft, ob ein Alphaplan Fehler vorliegt und liefert diesen zurück.
+        /// Falls kein Alphaplan Fehler vorliegt, wird null zurückgeliefert.
+        /// </summary>
+        /// <param name="ex">Die Ausnahme.</param>
+        /// <returns>ErrorException.</returns>
+        ErrorException GetAlphaplanError(Exception ex);
+        
+        /// <summary>
         /// Extrahiert die übergebenen Ausnahme und prüft, ob ein Alphaplan Fehler vorliegt.
         /// </summary>
         /// <param name="ex">Die Ausnahme.</param>

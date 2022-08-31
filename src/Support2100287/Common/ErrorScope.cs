@@ -88,6 +88,22 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         public void ThrowIfAlphaplanError(Exception ex)
 #pragma warning restore CA1822 // Mark members as static
         {
+            var error = this.GetAlphaplanError(ex);
+
+            if (error != null)
+            {
+                throw error;
+            }
+        }
+
+        /// <summary>
+        /// Extrahiert die übergebenen Ausnahme und prüft, ob ein Alphaplan Fehler vorliegt und liefert diesen zurück.
+        /// Falls kein Alphaplan Fehler vorliegt, wird null zurückgeliefert.
+        /// </summary>
+        /// <param name="ex">Die Ausnahme.</param>
+        /// <returns>ErrorException.</returns>
+        public ErrorException GetAlphaplanError(Exception ex)
+        {
             var message = ex.Message;
             var code = 0;
 
@@ -101,10 +117,8 @@ namespace Compori.Alphaplan.Plugin.Support.Common
                 message = GetErrorDescription(ex.InnerException);
                 code = GetErrorCode(ex.InnerException);
             }
-            if(code > 0)
-            {
-                throw new ErrorException(code, message, ex);
-            }
+
+            return code > 0 ? new ErrorException(code, message, ex) : null;
         }
         
         /// <summary>
