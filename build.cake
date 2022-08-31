@@ -1,3 +1,4 @@
+#tool nuget:?package=NuGet.CommandLine&version=5.9.1
 #tool nuget:?package=ReportGenerator&version=4.2.15
 #tool nuget:?package=coverlet.console&version=1.5.3
 #tool nuget:?package=OpenCover&version=4.7.922
@@ -50,6 +51,13 @@ var alphaplanSchnittellenExe3850Path = Argument<FilePath>("AlphaplanSchnittellen
 var alphaplanSchnittellenPlugin3850Directory = Argument<DirectoryPath>("AlphaplanSchnittellenPlugin3850Directory", "references/alphaplan-3850-478/app/Data/Eigene");
 var alphaplanSchnittellenPlugin3850TestRunnerPath = alphaplanSchnittellenPlugin3850Directory.CombineWithFilePath("TestRunnerPlugin.dll");
 
+//
+// Parameter Alphaplan 4900 Version 311
+//
+var alphaplanSchnittellenExe4900Directory = Argument<DirectoryPath>("AlphaplanSchnittellenExe4900Directory", "references/alphaplan-4900-311/app");
+var alphaplanSchnittellenExe4900Path = Argument<FilePath>("AlphaplanSchnittellenExe4900Path", "references/alphaplan-4900-311/app/AlphaplanSchnittstellen.exe");
+var alphaplanSchnittellenPlugin4900Directory = Argument<DirectoryPath>("AlphaplanSchnittellenPlugin4900irectory", "references/alphaplan-4900-311/app/Data/Eigene");
+var alphaplanSchnittellenPlugin4900TestRunnerPath = alphaplanSchnittellenPlugin4900Directory.CombineWithFilePath("TestRunnerPlugin.dll");
 
 //
 // Path for Tools
@@ -76,6 +84,7 @@ Task("Clean")
     CleanDirectory(alphaplanSchnittellenPlugin2850Directory);
     CleanDirectory(alphaplanSchnittellenPlugin3400Directory);
     CleanDirectory(alphaplanSchnittellenPlugin3850Directory);
+    CleanDirectory(alphaplanSchnittellenPlugin4900Directory);
 
     CleanDirectory(codeCoverageDirectory);
     CleanDirectory(outputDirectory);    
@@ -158,6 +167,7 @@ Task("Deploy-Nuget-Packages")
 
     // DeleteFiles(MakeAbsolute(outputDirectory).FullPath + "/*.symbols.nupkg");
     packageFiles = GetFiles(MakeAbsolute(outputDirectory).FullPath + "/*.nupkg");
+    
     // Push the package.
     NuGetPush(packageFiles, new NuGetPushSettings {
         Source = nugetDeployFeed,
@@ -231,7 +241,7 @@ Task("Test-With-CodeCoverageReport")
     .Does(() =>
 {
     ReportGenerator( 
-        MakeAbsolute(codeCoverageDirectory).FullPath + "/*.coverage.xml", 
+        new GlobPattern(MakeAbsolute(codeCoverageDirectory).FullPath + "/*.coverage.xml"), 
         MakeAbsolute(codeCoverageDirectory).FullPath + "/report",
         new ReportGeneratorSettings(){
             ReportTypes = new[] { 

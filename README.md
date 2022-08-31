@@ -1,13 +1,31 @@
 # Alphaplan Plugin Framework
 
-## Todo
+## Cake installieren oder aktualisieren
 
-* Build Instructions
-* Test Instructions
+In der Powershell mit Administratorenrechten sollte das Cake Build Tool global installiert werden.
+Optional kann ein nuget Konfigurationsdatei Ã¼bergeben werden.
+
+```
+dotnet tool install --global Cake.Tool --configfile C:\Tools\Nuget\NuGet.Config
+```
+
+Wenn Cake bereits installiert ist, kann nach Updates gesucht werden.
+
+```
+dotnet tool update --global Cake.Tool --configfile C:\Tools\Nuget\NuGet.Config
+```
+
+## Build starten
+
+Im Stammverzeichnis folgenden Befehl ausfÃ¼hren.
+
+```
+dotnet cake
+```
 
 ## Hinweis
 
-Damit die Test für 2850 und 3150 laufen ist es notwendig die xunit.dll für die 1.9.2 ins GAC zu installieren.
+Damit die Test fï¿½r 2850 und 3150 laufen ist es notwendig die xunit.dll fï¿½r die 1.9.2 ins GAC zu installieren.
 
 Z.B. ausgehende vom Stammverzeichnis der Solution:
 
