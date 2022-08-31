@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Compori.Alphaplan.Plugin.Actions
 {
@@ -22,9 +21,8 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// </summary>
         /// <param name="request">The originated request.</param>
         /// <param name="message">The message.</param>
-        public FailureResponse(IRequest request, string message) : base(request, false)
+        public FailureResponse(IRequest request, string message) : this(request, message, null)
         {
-            Message = message;
         }
 
         /// <summary>
@@ -35,29 +33,14 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// <param name="exception">The exception.</param>
         public FailureResponse(IRequest request, string message, Exception exception) : base(request, false)
         {
-            Message = message;
-            Exception = exception;
-        }
+            this.Message = message;
+            this.Exception = exception;
 
-        /// <summary>
-        /// Liefert ein Array mit Ergebnisdaten zurück.
-        /// </summary>
-        /// <value>Das Ergebnis.</value>
-        public override IDictionary<string, string> Result {
-            get
+            this.Result.Add("failureMessage", (this.Message ?? ""));
+            if(exception != null)
             {
-                var result = base.Result;
-                result
-                    .Add("failureMessage", (this.Message ?? ""));
-
-                if (this.Exception == null)
-                {
-                    return result;
-                }
-
-                result.Add("exception.Message", this.Exception.Message);
-                result.Add("exception.StackTrace", this.Exception.StackTrace);
-                return result;
+                this.Result.Add("exception.Message", this.Exception.Message);
+                this.Result.Add("exception.StackTrace", this.Exception.StackTrace);
             }
         }
     }

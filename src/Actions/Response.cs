@@ -21,12 +21,7 @@ namespace Compori.Alphaplan.Plugin.Actions
         /// Liefert ein Wörterbuch mit Ergebnisdaten zurück.
         /// </summary>
         /// <value>Das Ergebnis.</value>
-        public virtual IDictionary<string, string> Result => new Dictionary<string, string>
-        {
-            { "request.Name", this.Request?.Name ?? "" },
-            { "request.Serial", this.Request?.Serial ?? "" },
-            { "succeeded",  this.Succeeded ? "1" : "0" }
-        };
+        public IDictionary<string, string> Result { get; } 
 
         /// <summary>
         /// Liefert eine Liste mit Ergebnisdaten zurück.
@@ -43,6 +38,12 @@ namespace Compori.Alphaplan.Plugin.Actions
         {
             this.Request = request;
             this.Succeeded = succeeded;
+            this.Result = new Dictionary<string, string>
+            {
+                { "request.Name", this.Request?.Name ?? "" },
+                { "request.Serial", this.Request?.Serial ?? "" },
+                { "succeeded",  this.Succeeded ? "1" : "0" }
+            };
         }
     }
 }

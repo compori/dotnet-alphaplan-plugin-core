@@ -18,19 +18,7 @@ namespace Compori.Alphaplan.Plugin.Actions.Testing
         public EchoResponse(IRequest request, string echo = null) : base(request, true)
         {
             this.Echo = echo ?? "Silence";
-        }
-
-        /// <summary>
-        /// Liefert ein Array mit Ergebnisdaten zurück.
-        /// </summary>
-        /// <value>Das Ergebnis.</value>
-        public override IDictionary<string, string> Result {
-            get
-            {
-                var result = base.Result;
-                result.Add("echo", this.Echo);
-                return result;
-            }
+            this.Result.Add("echo", this.Echo);
         }
     }
 }
