@@ -25,7 +25,7 @@ dotnet cake
 
 ## Hinweis
 
-Damit die Test f�r 2850 und 3150 laufen ist es notwendig die xunit.dll f�r die 1.9.2 ins GAC zu installieren.
+Damit die Test für 2850 und 3150 laufen ist es notwendig die xunit.dll für die 1.9.2 ins GAC zu installieren.
 
 Z.B. ausgehende vom Stammverzeichnis der Solution:
 

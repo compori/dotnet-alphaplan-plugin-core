@@ -35,15 +35,20 @@ On Error Resume Next
         ' Plugin ausführen und Ergebnis auf Array prüfen.
         Dim aResult : aResult = Global.APSRunALS(strPlugin, aParameters)
 
-        ' MsgBox "VarType(aResult) = " & VarType(aResult)
+        ' MsgBox "VarType(aResult) = " & VarType(aResult) & ", VarType(aResult) And vbArray = " & CStr(VarType(aResult) And vbArray)
         ' MsgBox Err.Number & " - " & Err.Description
 
-        If VarType(aResult) And vbArray = vbArray Then
+        If (VarType(aResult) And vbArray) = vbArray Then
+            Dim nCount : nCount = UBound(aResult)
+            Dim nIndex : nIndex = 0
+            ' MsgBox "UBound(aResult) = " & nCount
+            For nIndex = 0 To nCount
             
-            for i = 0 To UBound(aResult)
-
-                ' MsgBox "VarType(aResult(" & i & ")) = " & VarType(aResult(i))
-                Dim strItem : strItem = CStr(aResult(i))
+                ' MsgBox "nIndex = " & CStr(nIndex)
+                ' MsgBox "VarType(aResult(" & nIndex & ")) = " & VarType(aResult(nIndex))
+                ' MsgBox "VarType(aResult(" & nIndex & ")) = " & CStr(aResult(nIndex)) & "[" & VarType(aResult(nIndex)) & "]"
+                
+                Dim strItem : strItem = CStr(aResult(nIndex))
                 Dim aKeyValuePair : aKeyValuePair = Split(strItem, "=", 2)
                 If UBound(aKeyValuePair) = 1 Then
                     Call oResultDict.Add(Trim(aKeyValuePair(0)), Trim(aKeyValuePair(1)))
@@ -54,6 +59,8 @@ On Error Resume Next
             Call oResultDict.Add("failureMessage", "Das Rückgabeergebnis war keine Array oder leer.")
         End If
     End If
+    
+    ' MsgBox Err.Number & " - " & Err.Description
     
     ' Prüfe ob das Ergebnis verüfgbar ist
     If Not oResultDict.Exists("succeeded") Then 

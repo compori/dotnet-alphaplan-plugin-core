@@ -335,6 +335,5 @@ references/**
 
 # cake build related files and directories
 tools/**
-!tools/packages.config
 output
 *.ignore.cmd
