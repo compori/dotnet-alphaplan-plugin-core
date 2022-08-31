@@ -1,14 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net480</TargetFrameworks>
     <RootNamespace>Compori.Alphaplan.Plugin.Support.DryIoc</RootNamespace>
-    <AssemblyName>Compori.Alphaplan.Plugin.Support.3850478.DryIoc</AssemblyName>
+    <AssemblyName>Compori.Alphaplan.Plugin.Support.4900311.DryIoc</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.1.1</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>

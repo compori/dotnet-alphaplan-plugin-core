@@ -17,7 +17,7 @@ var solutionFile = Argument("SolutionFile", "alphaplan-plugin-core.sln");
 var versionSuffix = Argument("VersionSuffix", "");
 
 var nugetDeployFeed = Argument("NugetDeployFeed", "https://api.nuget.org/v3/index.json");
-var nugetDeployApiKey = Argument("nugetDeployApiKey", "123");
+var nugetDeployApiKey = Argument("NugetDeployApiKey", "123");
 
 //
 // Parameter Alphaplan 2100 Version 287
