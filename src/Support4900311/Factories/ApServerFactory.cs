@@ -17,7 +17,7 @@ namespace Compori.Alphaplan.Plugin.Support.Factories
         /// Initializes a new instance of the <see cref="ApServerFactory"/> class.
         /// </summary>
         /// <param name="manager">The manager.</param>
-        protected ApServerFactory(IManagerPlugins manager)
+        public ApServerFactory(IManagerPlugins manager)
         {
             this.Manager = manager;
         }

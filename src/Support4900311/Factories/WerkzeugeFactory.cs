@@ -17,7 +17,7 @@ namespace Compori.Alphaplan.Plugin.Support.Factories
         /// Initializes a new instance of the <see cref="WerkzeugeFactory"/> class.
         /// </summary>
         /// <param name="manager">The manager.</param>
-        protected WerkzeugeFactory(IManagerPlugins manager)
+        public WerkzeugeFactory(IManagerPlugins manager)
         {
             this.Manager = manager;
         }

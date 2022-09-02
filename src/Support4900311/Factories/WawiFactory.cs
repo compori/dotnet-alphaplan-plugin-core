@@ -17,7 +17,7 @@ namespace Compori.Alphaplan.Plugin.Support.Factories
         /// Initializes a new instance of the <see cref="WawiFactory"/> class.
         /// </summary>
         /// <param name="manager">The manager.</param>
-        protected WawiFactory(IManagerPlugins manager)
+        public WawiFactory(IManagerPlugins manager)
         {
             this.Manager = manager;
         }
