@@ -14,7 +14,7 @@ namespace Compori.Alphaplan.Plugin.Support.Common
         /// Initializes a new instance of the <see cref="ProtocolProvider"/> class.
         /// </summary>
         /// <param name="protokoll">The Alphaplan Protokoll Wrapper.</param>
-        protected ProtocolProvider(Base.Wrapper.Protokoll protokoll)
+        public ProtocolProvider(Base.Wrapper.Protokoll protokoll)
         {
             this.Protokoll = protokoll;
         }
