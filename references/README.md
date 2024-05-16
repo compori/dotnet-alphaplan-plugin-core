@@ -81,4 +81,5 @@ mklink /J alphaplan-2850-200 D:\Alphaplan\Entwicklung\Plugin.Core\ALPHAPLAN.2800
 mklink /J alphaplan-3400-134 D:\Alphaplan\Entwicklung\Plugin.Core\ALPHAPLAN.3400.134
 mklink /J alphaplan-3850-478 D:\Alphaplan\Entwicklung\Plugin.Core\ALPHAPLAN.3850.478
 mklink /J alphaplan-4900-311 D:\Alphaplan\Entwicklung\Plugin.Core\ALPHAPLAN.4900.311
+mklink /J alphaplan-5500-170 D:\Alphaplan\Entwicklung\Plugin.Core\ALPHAPLAN.5500.170
 ```

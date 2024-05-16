@@ -25,7 +25,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets the identifier in primary key field.
         /// </summary>
         /// <value>The identifier.</value>
-        private int Id => this.GetValue<int>(this.PrimaryKeyField);
+        private long Id => this.GetValue<long>(this.PrimaryKeyField);
 
         /// <summary>
         /// Gets or sets the current filter.
@@ -383,11 +383,11 @@ namespace Compori.Alphaplan.Plugin.Support.Data
             }
             else if (typeof(T) == typeof(int))
             {
-                result = this.Writer.GetLongValue(this.Handle, field);
+                result = this.Writer.GetIntegerValue(this.Handle, field);
             }
             else if (typeof(T) == typeof(long))
             {
-                result = Convert.ToInt64(this.Writer.GetLongValue(this.Handle, field));
+                result = this.Writer.GetLongValue(this.Handle, field);
             }
             else if (typeof(T) == typeof(float))
             {
@@ -425,6 +425,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
             // convert
             if (result != null)
             {
+
                 return (T)result;
             }
 

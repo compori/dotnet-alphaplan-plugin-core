@@ -20,7 +20,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets the identifier in primary key field.
         /// </summary>
         /// <value>The identifier.</value>
-        int Id { get; }
+        long Id { get; }
 
         /// <summary>
         /// Gets the current filter.
@@ -88,7 +88,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>ITable.</returns>
-        ITable Seek(int id);
+        ITable Seek(long id);
 
         /// <summary>
         /// Gets the value of the field from current record.

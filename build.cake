@@ -60,6 +60,14 @@ var alphaplanSchnittellenPlugin4900Directory = Argument<DirectoryPath>("Alphapla
 var alphaplanSchnittellenPlugin4900TestRunnerPath = alphaplanSchnittellenPlugin4900Directory.CombineWithFilePath("TestRunnerPlugin.dll");
 
 //
+// Parameter Alphaplan 5500 Version 170
+//
+var alphaplanSchnittellenExe5500Directory = Argument<DirectoryPath>("AlphaplanSchnittellenExe5500Directory", "references/alphaplan-5500-170/app");
+var alphaplanSchnittellenExe5500Path = Argument<FilePath>("AlphaplanSchnittellenExe5500Path", "references/alphaplan-5500-170/app/AlphaplanSchnittstellen.exe");
+var alphaplanSchnittellenPlugin5500Directory = Argument<DirectoryPath>("AlphaplanSchnittellenPlugin5500irectory", "references/alphaplan-5500-170/app/Data/Eigene");
+var alphaplanSchnittellenPlugin5500TestRunnerPath = alphaplanSchnittellenPlugin5500Directory.CombineWithFilePath("TestRunnerPlugin.dll");
+
+//
 // Path for Tools
 //
 FilePath coverletPath = Context.Tools.Resolve("coverlet.console.dll");
@@ -85,6 +93,7 @@ Task("Clean")
     CleanDirectory(alphaplanSchnittellenPlugin3400Directory);
     CleanDirectory(alphaplanSchnittellenPlugin3850Directory);
     CleanDirectory(alphaplanSchnittellenPlugin4900Directory);
+    CleanDirectory(alphaplanSchnittellenPlugin5500Directory);
 
     CleanDirectory(codeCoverageDirectory);
     CleanDirectory(outputDirectory);    
@@ -152,7 +161,7 @@ Task("Build")
     });
 });
 
-Task("Deploy-Nuget-Packages")
+Task("Output-Nuget-Packages")
     .IsDependentOn("Build")
     .Does(() =>
 {
@@ -164,9 +173,14 @@ Task("Deploy-Nuget-Packages")
         var destionation = MakeAbsolute(outputDirectory).CombineWithFilePath(packageFilename);
         CopyFile(packageFile.FullPath, destionation);
     }
+});
 
+Task("Deploy-Nuget-Packages")
+    .IsDependentOn("Output-Nuget-Packages")
+    .Does(() =>
+{
     // DeleteFiles(MakeAbsolute(outputDirectory).FullPath + "/*.symbols.nupkg");
-    packageFiles = GetFiles(MakeAbsolute(outputDirectory).FullPath + "/*.nupkg");
+    var packageFiles = GetFiles(MakeAbsolute(outputDirectory).FullPath + "/*.nupkg");
     
     // Push the package.
     NuGetPush(packageFiles, new NuGetPushSettings {
@@ -188,6 +202,7 @@ Task("Test-With-CodeCoverage")
     testRunners.Add(new Tuple<FilePath, DirectoryPath, FilePath>(alphaplanSchnittellenPlugin2850TestRunnerPath, alphaplanSchnittellenExe2850Directory, alphaplanSchnittellenExe2850Path));    
     testRunners.Add(new Tuple<FilePath, DirectoryPath, FilePath>(alphaplanSchnittellenPlugin3400TestRunnerPath, alphaplanSchnittellenExe3400Directory, alphaplanSchnittellenExe3400Path));    
     testRunners.Add(new Tuple<FilePath, DirectoryPath, FilePath>(alphaplanSchnittellenPlugin3850TestRunnerPath, alphaplanSchnittellenExe3850Directory, alphaplanSchnittellenExe3850Path));    
+    testRunners.Add(new Tuple<FilePath, DirectoryPath, FilePath>(alphaplanSchnittellenPlugin5500TestRunnerPath, alphaplanSchnittellenExe5500Directory, alphaplanSchnittellenExe5500Path));    
 
     var i = 0;
     foreach(var testRunner in testRunners)

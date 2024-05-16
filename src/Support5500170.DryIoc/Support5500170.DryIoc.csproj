@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net480</TargetFrameworks>
+    <RootNamespace>Compori.Alphaplan.Plugin.Support.DryIoc</RootNamespace>
+    <AssemblyName>Compori.Alphaplan.Plugin.Support.5500170.DryIoc</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PlatformTarget>x64</PlatformTarget>
+    <VersionPrefix>0.1.3</VersionPrefix>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Compori.Base" Version="0.4.0" />
+    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Support.Base.DryIoc\Support.Base.DryIoc.csproj" />
+    <ProjectReference Include="..\Support5500170\Support5500170.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Base">
+      <HintPath>..\..\references\alphaplan-5500-170\app\Base.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

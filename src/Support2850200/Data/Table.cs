@@ -84,7 +84,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>ITable.</returns>
-        private ITable Seek(int id)
+        private ITable Seek(long id)
         {
             Guard.AssertArgumentIsInRange(id, nameof(id), v => v > 0);
 
@@ -376,15 +376,19 @@ namespace Compori.Alphaplan.Plugin.Support.Data
 
             if (typeof(T) == typeof(byte))
             {
-                result = (byte)this.Writer.GetIntegerValue(this.Handle, ref field);
+                result = Convert.ToByte(this.Writer.GetIntegerValue(this.Handle, ref field));
             }
             else if (typeof(T) == typeof(short))
             {
-                result = (short)this.Writer.GetIntegerValue(this.Handle, ref field);
+                result = Convert.ToInt16(this.Writer.GetIntegerValue(this.Handle, ref field));
             }
             else if (typeof(T) == typeof(int))
             {
                 result = this.Writer.GetLongValue(this.Handle, ref field);
+            }
+            else if (typeof(T) == typeof(long))
+            {
+                result = Convert.ToInt64(this.Writer.GetLongValue(this.Handle, ref field));
             }
             else if (typeof(T) == typeof(float))
             {
@@ -641,7 +645,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets the identifier in primary key field.
         /// </summary>
         /// <value>The identifier.</value>
-        int ITable.Id => this.Id;
+        long ITable.Id => this.Id;
 
         /// <summary>
         /// Clears the filter.
@@ -667,7 +671,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>ITable.</returns>
-        ITable ITable.Seek(int id)
+        ITable ITable.Seek(long id)
         {
             return this.Seek(id);
         }

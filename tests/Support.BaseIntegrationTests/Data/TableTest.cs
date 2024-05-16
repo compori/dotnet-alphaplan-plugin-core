@@ -18,7 +18,7 @@ namespace Support.BaseIntegrationTests.Data
         [Fact]
         public void TestCreateReadUpdateDelete()
         {
-            int id;
+            long id;
 
             var expectedBitValue = new Random().Next(0, 1) > 0;
             var expectedByteValue = (byte) new Random().Next(byte.MinValue, byte.MaxValue);
@@ -58,6 +58,7 @@ namespace Support.BaseIntegrationTests.Data
                 Assert.Equal(expectedByteValue, sut.Get<byte>("K_ByteValue"));
                 Assert.Equal(expectedIntegerValue, sut.Get<short>("K_IntegerValue"));
                 Assert.Equal(expectedLongValue, sut.Get<int>("K_LongValue"));
+                Assert.Equal(expectedLongValue, sut.Get<long>("K_LongValue"));
                 Assert.True(Math.Abs(expectedSingleValue - sut.Get<float>("K_SingleValue")) < 0.0001);
                 Assert.True(Math.Abs(expectedDoubleValue - sut.Get<double>("K_DoubleValue")) < 0.0000001);
                 Assert.Equal(expectedString30Value, sut.Get<string>("K_TextValue30"));
@@ -73,6 +74,7 @@ namespace Support.BaseIntegrationTests.Data
                 Assert.Equal(expectedByteValue, sut.Get<byte>("K_ByteValue"));
                 Assert.Equal(expectedIntegerValue, sut.Get<short>("K_IntegerValue"));
                 Assert.Equal(expectedLongValue, sut.Get<int>("K_LongValue"));
+                Assert.Equal(expectedLongValue, sut.Get<long>("K_LongValue"));
                 Assert.True(Math.Abs(expectedSingleValue - sut.Get<float>("K_SingleValue")) < 0.0001);
                 Assert.True(Math.Abs(expectedDoubleValue - sut.Get<double>("K_DoubleValue")) < 0.0000001);
                 Assert.Equal(expectedString30Value, sut.Get<string>("K_TextValue30"));
@@ -97,7 +99,7 @@ namespace Support.BaseIntegrationTests.Data
         public void TestMovement()
         {
             var unique = Guid.NewGuid().ToString("N");
-            var idList = new HashSet<int>();
+            var idList = new HashSet<long>();
             const int records = 10;
 
             using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
@@ -114,7 +116,7 @@ namespace Support.BaseIntegrationTests.Data
                 }
             }
 
-            var forwardIdList = new HashSet<int>();
+            var forwardIdList = new HashSet<long>();
 
             using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
             {
@@ -130,7 +132,7 @@ namespace Support.BaseIntegrationTests.Data
                 Assert.Equal(idList.OrderBy(v => v), forwardIdList.OrderBy(v => v));
             }
 
-            var backwardIdList = new HashSet<int>();
+            var backwardIdList = new HashSet<long>();
 
             using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
             {
@@ -167,7 +169,7 @@ namespace Support.BaseIntegrationTests.Data
         public void TestFilter()
         {
             var unique = Guid.NewGuid().ToString("N");
-            var idList = new Dictionary<int, HashSet<int>>();
+            var idList = new Dictionary<int, HashSet<long>>();
             const int records = 10;
 
             using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
@@ -184,13 +186,13 @@ namespace Support.BaseIntegrationTests.Data
                     Assert.True(id > 0);
                     if (!idList.ContainsKey(modulus))
                     {
-                        idList.Add(modulus, new HashSet<int>());
+                        idList.Add(modulus, new HashSet<long>());
                     }
                     idList[modulus].Add(id);
                 }
             }
 
-            var forwardIdList = new HashSet<int>();
+            var forwardIdList = new HashSet<long>();
 
             using (var sut = this.Container.Resolve<ITableFactory>().Create("K_Tests_DataTable"))
             {
