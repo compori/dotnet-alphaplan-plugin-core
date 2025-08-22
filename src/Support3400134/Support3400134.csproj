@@ -1,43 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFramework>net48</TargetFramework>
     <RootNamespace>Compori.Alphaplan.Plugin.Support</RootNamespace>
     <AssemblyName>Compori.Alphaplan.Plugin.Support.3400134Z</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>
     <PlatformTarget>x86</PlatformTarget>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
     <PackageId>Compori.Alphaplan.Plugin.Support.3400134</PackageId>
     <Authors>Martin Monnier</Authors>
     <Product>Support Library Alphaplan 3400.134</Product>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</RepositoryUrl>
+    <Copyright>Martin Monnier</Copyright>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Compori.Base" Version="0.4.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Compori.Base" Version="0.5.0" />
   </ItemGroup>
   
-  <ItemGroup>    
-    <Source_3400134Z_Support2100287_Data Include="..\Support2100287\Data\*.cs" />
-    <Source_3400134Z_Common_ProtocolProvider Include="..\Support2850200\Common\ProtocolProvider.cs" />
-    <Source_3400134Z_Common_Version2850200_ProtocolProvider Include="..\Support2850200\Common\Version2850200\ProtocolProvider.cs" />
-    <Source_3400134Z_Factories_Version2850200_ApServerFactory Include="..\Support2850200\Factories\Version2850200\ApServerFactory.cs" />
-    <Source_3400134Z_Factories_Version2850200_WawiFactory Include="..\Support2850200\Factories\Version2850200\WawiFactory.cs" />
-    <Source_3400134Z_Factories_Version2850200_WerkzeugeFactory Include="..\Support2850200\Factories\Version2850200\WerkzeugeFactory.cs" />
-  </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Copy SourceFiles="@(Source_3400134Z_Common_ProtocolProvider)" DestinationFolder=".\Common" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_3400134Z_Common_Version2850200_ProtocolProvider)" DestinationFolder=".\Common\Version2850200" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_3400134Z_Factories_Version2850200_ApServerFactory)" DestinationFolder=".\Factories\Version2850200" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_3400134Z_Factories_Version2850200_WawiFactory)" DestinationFolder=".\Factories\Version2850200" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_3400134Z_Factories_Version2850200_WerkzeugeFactory)" DestinationFolder=".\Factories\Version2850200" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_3400134Z_Support2100287_Data)" DestinationFiles="@(Source_3400134Z_Support2100287_Data->'Data\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-  </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\Support.Base\Support.Base.csproj" />
   </ItemGroup>

@@ -1,21 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net480</TargetFrameworks>
+    <TargetFramework>net480</TargetFramework>
     <RootNamespace>Compori.Alphaplan.Plugin.Support.DryIoc</RootNamespace>
     <AssemblyName>Compori.Alphaplan.Plugin.Support.5500170.DryIoc</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</RepositoryUrl>
+    <Copyright>Martin Monnier</Copyright>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Compori.Base" Version="0.4.0" />
-    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="5.4.3" />
   </ItemGroup>
 
   <ItemGroup>

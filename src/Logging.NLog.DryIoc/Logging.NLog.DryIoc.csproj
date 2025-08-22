@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net35;net461</TargetFrameworks>
@@ -8,13 +8,24 @@
   <PropertyGroup>
     <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</AssemblyName>
     <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</RootNamespace>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <Authors>Martin Monnier</Authors>
     <Company>Compori</Company>
     <Description>DryIoc DI Registration for nlog initializer.</Description>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</RepositoryUrl>
     <Copyright>Martin Monnier</Copyright>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,7 +33,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net35'">
+    <PackageReference Include="DryIoc.dll" Version="5.4.3" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+    <PackageReference Include="DryIoc.dll" Version="4.8.8" />
   </ItemGroup>
 
   <ItemGroup>

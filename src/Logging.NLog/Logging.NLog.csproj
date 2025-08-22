@@ -1,28 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net461</TargetFrameworks>
+    <TargetFrameworks>net35;net48</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog</AssemblyName>
     <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog</RootNamespace>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <Authors>Martin Monnier</Authors>
+    <NoWarn>1701;1702</NoWarn>
     <Company>Compori</Company>
     <Description>Simple and small nlog initializer in order to use by plugin assemblys.</Description>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</RepositoryUrl>
     <Copyright>Martin Monnier</Copyright>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NoWarn>1701;1702</NoWarn>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.7.2" />
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

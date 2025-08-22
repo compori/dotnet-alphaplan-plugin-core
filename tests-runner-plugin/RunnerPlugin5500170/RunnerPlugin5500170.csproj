@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Compori.Testing.Xunit.AssemblyRunner" Version="0.3.0" />
-    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+    <PackageReference Include="DryIoc.dll" Version="5.4.3" />
     <PackageReference Include="OpenCover" Version="4.7.922" />
   </ItemGroup>
 

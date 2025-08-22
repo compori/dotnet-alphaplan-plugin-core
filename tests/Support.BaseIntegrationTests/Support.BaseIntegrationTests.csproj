@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net461</TargetFrameworks>
+    <TargetFrameworks>net35;net48</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -16,8 +16,12 @@
     <PackageReference Include="xunit" Version="1.9.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.2.0" />
+  <ItemGroup Condition="'$(TargetFramework)' != 'net35'">
+    <PackageReference Include="DryIoc.dll" Version="5.4.3" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+    <PackageReference Include="DryIoc.dll" Version="4.8.8" />
   </ItemGroup>
 
   <ItemGroup>

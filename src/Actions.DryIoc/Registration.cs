@@ -29,7 +29,11 @@ namespace Compori.Alphaplan.Plugin.Actions.DryIoc
             Guard.AssertArgumentIsNotNull(registrator, nameof(registrator));
             Guard.AssertArgumentIsNotNull(container, nameof(container));
 
-            registrator.UseInstance<IRequestResolver>(new RequestResolver(container));
+#if !NET35
+            registrator.Use<IRequestResolver>(new RequestResolver(container));
+#else
+            registrator.UseInstance(new RequestResolver(container));
+#endif
         }
 
         /// <summary>

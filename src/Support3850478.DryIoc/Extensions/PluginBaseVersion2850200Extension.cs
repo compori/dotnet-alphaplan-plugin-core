@@ -21,7 +21,7 @@ namespace Compori.Alphaplan.Plugin.Support.DryIoc.Extensions
             }
 
             Guard.AssertArgumentIsNotNull(manager, nameof(manager));
-            registrator.UseInstance<IManagerBase>(manager);
+            registrator.Use<IManagerBase>(manager);
             return registrator;
         }
     }

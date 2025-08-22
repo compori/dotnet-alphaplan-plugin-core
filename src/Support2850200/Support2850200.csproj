@@ -8,16 +8,33 @@
 
   <PropertyGroup>
     <PlatformTarget>x86</PlatformTarget>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
     <PackageId>Compori.Alphaplan.Plugin.Support.2850200</PackageId>
     <Authors>Martin Monnier</Authors>
     <Product>Support Library Alphaplan 2850.200</Product>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/compori/dotnet-alphaplan-plugin-core</RepositoryUrl>
+    <Copyright>Martin Monnier</Copyright>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryType>git</RepositoryType>
+    <Deterministic>true</Deterministic>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Compori.Base" Version="0.4.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Compori.Base" Version="0.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,15 +47,5 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
-  <ItemGroup>    
-    <Source_2850200Z_Support2100287_Data Include="..\Support2100287\Data\*.cs"/>
-    <Source_2850200Z_Support2100287_Data_SqlClient Include="..\Support2100287\Data\SqlClient\**\*.cs"/>
-  </ItemGroup> 
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Copy SourceFiles="@(Source_2850200Z_Support2100287_Data)" DestinationFiles="@(Source_2850200Z_Support2100287_Data->'Data\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(Source_2850200Z_Support2100287_Data_SqlClient)" DestinationFiles="@(Source_2850200Z_Support2100287_Data_SqlClient->'Data\SqlClient\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-  </Target>
 
 </Project>

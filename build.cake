@@ -12,12 +12,13 @@
 var target = Argument("target", "Default");
 var configuration = Argument("Configuration", "Release");
 var outputDirectory = Argument<DirectoryPath>("OutputDirectory", "output");
+var packageDirectory = Argument<DirectoryPath>("PackageDirectory", "output/packages");
 var codeCoverageDirectory = Argument<DirectoryPath>("CodeCoverageDirectory", "output/coverage");
 var solutionFile = Argument("SolutionFile", "alphaplan-plugin-core.sln");
 var versionSuffix = Argument("VersionSuffix", "");
 
 var nugetDeployFeed = Argument("NugetDeployFeed", "https://api.nuget.org/v3/index.json");
-var nugetDeployApiKey = Argument("NugetDeployApiKey", "123");
+var nugetDeployApiKey = Argument("NugetDeployApiKey", "");
 
 //
 // Parameter Alphaplan 2100 Version 287
@@ -161,33 +162,43 @@ Task("Build")
     });
 });
 
-Task("Output-Nuget-Packages")
+Task("Deploy")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    var packageFiles = GetFiles("src/**/*.nupkg");
+     CreateDirectory(packageDirectory);
 
+    var packageFiles = GetFiles($"src/**/bin/{configuration}/*.nupkg");
     foreach(var packageFile in packageFiles)
     {
         var packageFilename = packageFile.GetFilename();
-        var destionation = MakeAbsolute(outputDirectory).CombineWithFilePath(packageFilename);
+        var destionation = MakeAbsolute(packageDirectory).CombineWithFilePath(packageFilename);
         CopyFile(packageFile.FullPath, destionation);
     }
-});
 
-Task("Deploy-Nuget-Packages")
-    .IsDependentOn("Output-Nuget-Packages")
-    .Does(() =>
-{
-    // DeleteFiles(MakeAbsolute(outputDirectory).FullPath + "/*.symbols.nupkg");
-    var packageFiles = GetFiles(MakeAbsolute(outputDirectory).FullPath + "/*.nupkg");
+    var spackageFiles = GetFiles($"src/**/bin/{configuration}/*.snupkg");
+    foreach(var spackageFile in spackageFiles)
+    {
+        var spackageFilename = spackageFile.GetFilename();
+        var sdestination = MakeAbsolute(packageDirectory).CombineWithFilePath(spackageFilename);
+        CopyFile(spackageFile.FullPath, sdestination);
+    }
     
+    packageFiles = GetFiles(MakeAbsolute(packageDirectory).FullPath + "/*.nupkg");
+    spackageFiles = GetFiles(MakeAbsolute(packageDirectory).FullPath + "/*.snupkg");
+    if(string.IsNullOrWhiteSpace(nugetDeployApiKey)) 
+    {
+        Error("No nuget api key provided. Please use argument e.g. --NugetDeployApiKey=1234567-8901-abcd-ef12-13212313121");
+        return;
+    }
+
     // Push the package.
-    NuGetPush(packageFiles, new NuGetPushSettings {
-        Source = nugetDeployFeed,
-        ApiKey = nugetDeployApiKey,
-        SkipDuplicate = true
-    });
+    NuGetPush(packageFiles,
+        new NuGetPushSettings {
+                Source = nugetDeployFeed,
+                ApiKey = nugetDeployApiKey,
+                SkipDuplicate = true
+    });   
 });
 
 Task("Test-With-CodeCoverage")

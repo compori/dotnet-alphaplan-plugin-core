@@ -25,7 +25,7 @@ namespace Compori.Alphaplan.Plugin.Support.Data
         /// Gets the identifier in primary key field.
         /// </summary>
         /// <value>The identifier.</value>
-        private int Id => this.GetValue<int>(this.PrimaryKeyField);
+        private long Id => (long)this.GetValue<int>(this.PrimaryKeyField);
 
         /// <summary>
         /// Gets or sets the current filter.

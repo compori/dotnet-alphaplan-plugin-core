@@ -24,12 +24,12 @@ namespace Compori.Alphaplan.Plugin.Support.DryIoc.Extensions
             Guard.AssertArgumentIsNotNull(information, nameof(information));
             Guard.AssertArgumentIsNotNull(plugin, nameof(plugin));
 
-            registrator.UseInstance(manager);
-            registrator.UseInstance(information);
-            registrator.UseInstance(plugin);
-            registrator.UseInstance<ClientBase>(plugin);
-            registrator.UseInstance<IPluginBase>(plugin);
-            registrator.UseInstance<IManagerBase>(manager);
+            registrator.Use(manager);
+            registrator.Use(information);
+            registrator.Use(plugin);
+            registrator.Use<ClientBase>(plugin);
+            registrator.Use<IPluginBase>(plugin);
+            registrator.Use<IManagerBase>(manager);
 
             return registrator;
         }
