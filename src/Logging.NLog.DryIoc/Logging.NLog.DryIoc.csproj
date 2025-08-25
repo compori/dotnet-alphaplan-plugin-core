@@ -8,7 +8,7 @@
   <PropertyGroup>
     <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</AssemblyName>
     <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog.DryIoc</RootNamespace>
-    <VersionPrefix>0.6.0</VersionPrefix>
+    <VersionPrefix>0.7.0</VersionPrefix>
     <Authors>Martin Monnier</Authors>
     <Company>Compori</Company>
     <Description>DryIoc DI Registration for nlog initializer.</Description>

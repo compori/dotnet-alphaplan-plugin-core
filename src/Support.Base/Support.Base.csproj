@@ -7,7 +7,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <VersionPrefix>0.6.0</VersionPrefix>
+    <VersionPrefix>0.7.0</VersionPrefix>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>1701;1702</NoWarn>
     <Authors>Martin Monnier</Authors>
@@ -30,11 +30,6 @@
     <None Include="docs\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net35'">
-    <PackageReference Include="Microsoft.Data.SqlClient">
-      <Version>6.1.1</Version>
-    </PackageReference>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>

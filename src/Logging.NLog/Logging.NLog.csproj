@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>Compori.Alphaplan.Plugin.Logging.NLog</AssemblyName>
     <RootNamespace>Compori.Alphaplan.Plugin.Logging.NLog</RootNamespace>
-    <VersionPrefix>0.6.0</VersionPrefix>
+    <VersionPrefix>0.7.0</VersionPrefix>
     <Authors>Martin Monnier</Authors>
     <NoWarn>1701;1702</NoWarn>
     <Company>Compori</Company>
